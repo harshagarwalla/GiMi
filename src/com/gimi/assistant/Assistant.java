@@ -19,7 +19,7 @@ public class Assistant
         System.out.println();
         System.out.println("Hello!");
         System.out.println();
-        System.out.println("I am " + APP_NAME +".");
+        System.out.println("I am " + APP_NAME + ".");
         System.out.println("Your Personal Assistant.");
         System.out.println();
         System.out.println("Type \"help\" to see available commands.");
@@ -30,7 +30,14 @@ public class Assistant
         while (true)
         {
             System.out.print("> ");
-            String command = scanner.nextLine().trim().toLowerCase();
+            String input = scanner.nextLine().trim();
+            if(input.isEmpty())
+            {
+                continue;
+            }
+            String[] parts = input.split(" ", 2);
+            String command = parts[0].toLowerCase();
+            String arguments = parts.length>1 ? parts[1] : "";
             switch (command)
             {
                 case "help":
@@ -38,6 +45,9 @@ public class Assistant
                     break;
                 case "about":
                     showAbout();
+                    break;
+                case "echo":
+                    echo(arguments);
                     break;
                 case "exit":
                     System.out.println("\nGoodbye!");
@@ -56,6 +66,7 @@ public class Assistant
         System.out.println();
         System.out.println("help    - Show available commands");
         System.out.println("about   - Information about GiMi");
+        System.out.println("echo    - Display the given text");
         System.out.println("exit    - Exit GiMi");
         System.out.println();
     }
@@ -68,6 +79,19 @@ public class Assistant
         System.out.println("Name    :   " + APP_NAME );
         System.out.println("Version :   " + VERSION );
         System.out.println("Author  :   " + AUTHOR );
+        System.out.println();
+    }
+    private void echo(String arguments)
+    {
+        System.out.println();
+        if( !arguments.isEmpty())
+        {
+            System.out.println(arguments);
+        }
+        else
+        {
+            System.out.println("Usage: echo <text>");
+        }
         System.out.println();
     }
 }
