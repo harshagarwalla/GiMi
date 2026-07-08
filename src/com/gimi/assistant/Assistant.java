@@ -1,4 +1,5 @@
 package com.gimi.assistant;
+import com.gimi.util.Console;
 import java.util.Scanner;
 public class Assistant
 {
@@ -13,12 +14,8 @@ public class Assistant
     }
     private void displayWelcomeScreen()
     {
-        System.out.println("=========================");
-        System.out.println("        " + APP_NAME + "  " + VERSION + "       ");
-        System.out.println("=========================");
-        System.out.println();
-        System.out.println("Hello!");
-        System.out.println();
+        Console.printHeader(APP_NAME, VERSION);
+        Console.printMessage("Hello!");
         System.out.println("I am " + APP_NAME + ".");
         System.out.println("Your Personal Assistant.");
         System.out.println();
@@ -31,7 +28,7 @@ public class Assistant
         {
             System.out.print("> ");
             String input = scanner.nextLine().trim();
-            if(input.isEmpty())
+            if (input.isEmpty())
             {
                 continue;
             }
@@ -50,20 +47,17 @@ public class Assistant
                     echo(arguments);
                     break;
                 case "exit":
-                    System.out.println("\nGoodbye!");
+                    Console.printMessage("Goodbye!");
                     return;
                 default:
-                    System.out.println("\nUnknown command: " + command);
-                    System.out.println("\nType \"help\" to see available commands.\n");
+                    Console.showError("Unknown command: " + command);
+                    Console.printMessage("Type \"help\" to see available commands.");
             }
         }
     }
     private void showHelp()
     {
-        System.out.println();
-        System.out.println("Available Commands");
-        System.out.println("------------------");
-        System.out.println();
+        Console.printSection("Available Commands");
         System.out.println("help    - Show available commands");
         System.out.println("about   - Information about GiMi");
         System.out.println("echo    - Display the given text");
@@ -72,10 +66,7 @@ public class Assistant
     }
     private void showAbout()
     {
-        System.out.println();
-        System.out.println("About GiMi");
-        System.out.println("----------");
-        System.out.println();
+        Console.printSection("About GiMi");
         System.out.println("Name    :   " + APP_NAME );
         System.out.println("Version :   " + VERSION );
         System.out.println("Author  :   " + AUTHOR );
@@ -83,15 +74,13 @@ public class Assistant
     }
     private void echo(String arguments)
     {
-        System.out.println();
-        if( !arguments.isEmpty())
+        if (!arguments.isEmpty())
         {
-            System.out.println(arguments);
+            Console.printMessage(arguments);
         }
         else
         {
-            System.out.println("Usage: echo <text>");
+            Console.printMessage("Usage: echo <text>");
         }
-        System.out.println();
     }
 }
